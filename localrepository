@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Define the source repository URL
+source_repo_url="https://github.com/bajramishpetim/sda-project.git"
+
+# Define the target GitLab repository URL
+gitlab_repo_url="https://github.com/bajramishpetim/sda-target.git"
+
+# Clone the source repository as a mirrored repository
+git clone --mirror "$source_repo_url" temp.git
+
+# Change directory to the mirrored repository
+cd temp.git
+
+# Change the remote URL to the GitLab repository
+git remote set-url --push origin "$gitlab_repo_url"
+git remote update
+
+# Push the mirrored repository to GitLab
+git push --mirror
+
+# Clean up the temporary directory
+cd ..
+rm -rf temp.git
